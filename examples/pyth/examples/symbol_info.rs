@@ -58,6 +58,7 @@ enum Group {
     Forex,
     Crypto,
     CFD,
+    Bond,
 }
 
 #[tokio::main]
