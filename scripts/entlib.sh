@@ -4,16 +4,25 @@
 # Usage:
 # ./entlib.sh
 # ./entlib.sh git v1.0.2
+# ./entlib.sh git v1.0.2 --offline
 
 lib_name="entlib"
 git_repo="ssh://git@github.com/QuantumIntelligenceChain/EntLib.git"
 git_tag="v1.0.0"
+ext_args=""
 
 is_git=false
-if [ "$#" -ge 1 ] && [ "$1" == "git" ]; then
-    is_git=true
-    if [ "$#" -eq 2 ]; then
-        git_tag=$2
+if [ "$#" -ge 1 ]; then
+    if [ "$1" == "git" ]; then
+        is_git=true
+        if [ "$#" -ge 2 ]; then
+            git_tag=$2
+        fi
+        if [ "$#" -ge 3 ]; then
+            ext_args="${@:3}"
+        fi
+    else
+        ext_args="${@:1}"
     fi
 fi
 
@@ -48,9 +57,9 @@ find . -type f -name "Cargo.toml" | while read -r file; do
 
     # Add commands to execute in the Cargo.toml directory
     if [ "$is_git" == true ]; then
-        cargo add $lib_name --git $git_repo --tag $git_tag --offline
+        cargo add $lib_name --git $git_repo --tag $git_tag $ext_args
     else
-        cargo add $lib_name --path ".${relative_path}${lib_name}"
+        cargo add $lib_name --path ".${relative_path}${lib_name}" $ext_args
     fi
 
     # Remove version entries from lines starting with lib_name
