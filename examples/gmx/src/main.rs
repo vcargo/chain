@@ -76,6 +76,10 @@ async fn main() -> anyhow::Result<()> {
                     let event_name = filter.event_name.to_string();
                     if ["PositionIncrease", "PositionDecrease"].contains(&event_name.as_str()) {
                         println!("Txn Hash: {:?} {:?}", txn_hash, filter);
+
+                        let uint_items = &filter.event_data.uint_items.items;
+                        let order_type = gmx::get_order_type(uint_items)?;
+                        println!("Order Type: {:?}", order_type);
                     }
                 }
                 _ => {}
