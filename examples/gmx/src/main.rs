@@ -45,6 +45,20 @@ async fn main() -> anyhow::Result<()> {
     //     }
     // }
 
+    // use std::sync::Arc;
+    // use ethers::contract::Contract;
+    // let address = Address::from_str(dotenv!("GMX_EVENT_EMITTER_ADDRESS"))?;
+    // let client = Arc::new(provider);
+    // let event = Contract::event_of_type::<EventLog1Filter>(client)
+    //     .address(ValueOrArray::Array(vec![address]))
+    //     .from_block(latest_block);
+    // let mut stream = event.subscribe_with_meta().await?;
+    // while let Some(Ok((evt, meta))) = stream.next().await {
+    //     if evt.event_name == "PositionIncrease" || evt.event_name == "PositionDecrease" {
+    //         println!("Txn Hash: {:?} {:?}", meta.transaction_hash, evt);
+    //     }
+    // }
+
     let address = Address::from_str(dotenv!("GMX_EVENT_EMITTER_ADDRESS"))?;
     let filter = Filter::new()
         .address(ValueOrArray::Array(vec![address]))
