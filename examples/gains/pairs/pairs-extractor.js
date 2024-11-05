@@ -3,6 +3,7 @@ const puppeteer = require('puppeteer');
 (async () => {
     let code = '';
     const template = 'm.insert({pairIndex}, "{asset}");\n';
+    // const template = "UPDATE `copytrading`.`trade` SET `symbol`='{asset}' WHERE `symbol`='{pairIndex}';\n";
 
     const browser = await puppeteer.launch({
         args: ['--proxy-server=http://127.0.0.1:7890'],
