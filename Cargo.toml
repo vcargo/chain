@@ -8,6 +8,7 @@ edition = "2021"
 [workspace]
 resolver = "2"
 members = [
+    "examples/gains",
     "examples/gmx",
     "examples/pyth",
 ]
